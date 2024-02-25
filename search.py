@@ -4,7 +4,7 @@ import pandas as pd
 from config import DATABASE_CONFIG
 
 def app():
-    st.title("查询租房记录")
+    st.title("查询推房记录")
 
     # Function to get database connection
     def get_db_connection():
