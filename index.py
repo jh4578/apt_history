@@ -1,15 +1,10 @@
 import streamlit as st
-# import insert_build
-import insert_build
-import insert_unit
 import search
-import sql_test
-import update_user
-import manage
+
 import hmac
 
 st.set_page_config(layout="wide", initial_sidebar_state="auto")
-st.title("房源数据管理")
+# st.title("房源数据管理")
 
 def check_password():
     """Returns `True` if the user had a correct password."""
@@ -62,18 +57,11 @@ if 'password_correct' in st.session_state and st.session_state['password_correct
     def main():
     
         st.sidebar.title("目录")
-        choice = st.sidebar.selectbox("选择", ["搜索房源", "更新User","添加公寓", "添加单元", "测试"])
+        choice = st.sidebar.selectbox("选择", ["推房记录"])
         
-        if choice == "搜索房源":
+        if choice == "推房记录":
             search.app()
-        elif choice == "添加公寓":
-            insert_build.app()
-        elif choice == "添加单元":
-            insert_unit.app()
-        elif choice == "测试":
-            sql_test.app()
-        elif choice == "更新User":
-            update_user.app()
+        
         
     if __name__ == "__main__":
         main()
