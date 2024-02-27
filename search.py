@@ -5,6 +5,16 @@ from config import DATABASE_CONFIG
 
 def app():
     st.title("查询推房记录")
+    def delete_record(user_wechat_id, chatbot_wechat_id):
+        if user_wechat_id and chatbot_wechat_id:
+            query = "DELETE FROM Unit_user WHERE user_wechat_id = %s AND chatbot_wechat_id = %s"
+            connection = get_db_connection()
+            cursor = connection.cursor()
+            cursor.execute(query, (user_wechat_id, chatbot_wechat_id))
+            connection.commit()  # 不要忘记提交更改
+            connection.close()
+            st.success("记录已删除")  # 反馈删除操作成功
+
 
     # Function to get database connection
     def get_db_connection():
@@ -47,6 +57,13 @@ def app():
             df = pd.read_sql(query, connection, params=(selected_user_wechat_id, chatbot_wechat_id))
             connection.close()
             st.write(df)
+            
+        if st.button("删除记录"):
+            # 调用删除记录的函数
+            delete_record(selected_user_wechat_id, chatbot_wechat_id)
+            # 更新 session state 中的 user_wechat_ids，因为记录已被删除
+            user_wechat_ids = fetch_user_wechat_ids(chatbot_wechat_id)
+            st.session_state['user_wechat_ids'] = user_wechat_ids
 
 if __name__ == "__main__":
     app()
