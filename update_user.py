@@ -5,7 +5,7 @@ from st_aggrid import AgGrid, GridOptionsBuilder
 from config import DATABASE_CONFIG
     
 def app():
-    st.title("更新User")
+    st.title("推房管理")
 
     # Function to get database connection
     def get_db_connection():
@@ -51,7 +51,7 @@ def app():
     # Handle Search
     if search_user:
         search_query = """
-        SELECT user_id, preference, roommate_preference, sex, wechat_id, conversation, chatbot_wx_id, sche_listing, is_group
+        SELECT user_id, preference, roommate_preference, sex, wechat_id, chatbot_wx_id, sche_listing, is_group
         FROM user
         WHERE 1=1
         """
