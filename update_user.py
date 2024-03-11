@@ -51,7 +51,7 @@ def app():
     # Handle Search
     if search_user:
         search_query = """
-        SELECT user_id, preference, roommate_preference, sex, wechat_id, chatbot_wx_id, sche_listing, is_group
+        SELECT wechat_id, preference, chatbot_wx_id, sche_listing, is_group, user_id
         FROM user
         WHERE 1=1
         """
@@ -92,8 +92,6 @@ def app():
                 if st.button('更新'):
                     user_column_name_mapping = {
                         'preference': 'preference',
-                        'roommate_preference': 'roommate_preference',
-                        'sex': 'sex',
                         'wechat_id': 'wechat_id',
                         'chatbot_wx_id': 'chatbot_wx_id',
                         'sche_listing': 'sche_listing',
