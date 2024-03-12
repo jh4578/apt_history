@@ -41,6 +41,12 @@ def app():
         df = execute_read_query(query)
         return df['chatbot_wx_id'].tolist()
         
+    def get_unique_building_names():
+        query = "SELECT DISTINCT building_name FROM Unit"
+        df = execute_read_query(query)
+        return df['building_name'].tolist()
+
+        
     with st.form("search_form"):
         chatbot_wx_ids = get_chatbot_wx_ids()
         chatbot_wx_id = st.selectbox("Chatbot 微信ID", ['Any'] + chatbot_wx_ids)
@@ -109,7 +115,29 @@ def app():
         selected = grid_response['selected_rows']
         if selected:
             st.session_state['selected_for_deletion'] = selected
+            selected_building = selected_rows[0]  # 假设我们只处理第一个选中的行
             
+            if st.button("添加已推荐大楼"):
+                building_names = get_unique_building_names()  # 从数据库获取所有唯一的楼名
+                
+                # 使用multiselect让用户可以选择多个楼名
+                new_building_names = st.multiselect("选择楼名", options=building_names)
+                
+                # 显示一个按钮让用户提交更新
+                if st.button("更新已推大楼"):
+                    # 将用户选择的楼名列表转换成字符串
+                    no_building_str = ', '.join(new_building_names)
+                    
+                    # 假设'user_id'是选中行中用户的唯一标识符
+                    user_id = selected_building.get("user_id")
+                    update_query = f"""
+                    UPDATE user
+                    SET no_building = '{no_building_str}'
+                    WHERE user_id = {user_id}
+                    """
+                    execute_write_query(update_query)
+                    st.success("楼名更新成功！")
+                    
             if st.button('删除'):
                 for row in st.session_state['selected_for_deletion']:
                     user_delete_query = f"DELETE FROM user WHERE user_id = {row['user_id']}"
