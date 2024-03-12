@@ -166,7 +166,7 @@ def app():
         # 插入新用户数据到数据库
         insert_query = f"""
         INSERT INTO user (wechat_id, preference, chatbot_wx_id, sche_listing, is_group, no_building)
-        VALUES ('{new_wechat_id}', '{new_preference}', '{new_chatbot_wx_id}', {new_sche_listing}, {is_group}, {no_building_str})
+        VALUES ('{new_wechat_id}', '{new_preference}', '{new_chatbot_wx_id}', {new_sche_listing}, {is_group}, '{no_building_str}')
         """
         execute_write_query(insert_query)
         st.success("用户添加成功！")
