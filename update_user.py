@@ -115,9 +115,9 @@ def app():
         selected = grid_response['selected_rows']
         if selected:
             st.session_state['selected_for_deletion'] = selected
-            selected_building = selected_rows[0]  # 假设我们只处理第一个选中的行
             
             if st.button("添加已推荐大楼"):
+                selected_building = selected[0]
                 building_names = get_unique_building_names()  # 从数据库获取所有唯一的楼名
                 
                 # 使用multiselect让用户可以选择多个楼名
