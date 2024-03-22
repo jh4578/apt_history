@@ -21,6 +21,11 @@ def app():
         connection = mysql.connector.connect(**DATABASE_CONFIG)
         return connection
 
+    def get_chatbot_wx_ids():
+        query = "SELECT DISTINCT chatbot_wx_id FROM user WHERE chatbot_wx_id IS NOT NULL"
+        df = execute_read_query(query)
+        return df['chatbot_wx_id'].tolist()
+
     # Function to fetch user_wechat_ids for a given chatbot_wechat_id
     def fetch_user_wechat_ids(chatbot_wechat_id):
         if chatbot_wechat_id:
@@ -36,7 +41,8 @@ def app():
         st.session_state['user_wechat_ids'] = []
 
     with st.form("search_form"):
-        chatbot_wechat_id = st.text_input("你的微信名", "")
+        chatbot_wx_ids = get_chatbot_wx_ids()
+        chatbot_wechat_id = st.selectbox("Chatbot 微信ID", ['Any'] + chatbot_wx_ids)
         fetch_ids = st.form_submit_button("加载客户微信备注")
 
     if fetch_ids and chatbot_wechat_id:
