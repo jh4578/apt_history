@@ -14,7 +14,19 @@ def app():
             connection.commit()  # 不要忘记提交更改
             connection.close()
             st.success("记录已删除")  # 反馈删除操作成功
-
+    def execute_read_query(query=None):
+        # st.write(query)
+        connection = get_db_connection()
+        if query is None:
+            # Adjust this default query as per your requirements
+            query = """
+            SELECT Unit.*, Building.building_name, Building.location
+            FROM Unit
+            JOIN Building ON Unit.building_id = Building.building_id
+            """
+        df = pd.read_sql(query, connection)
+        connection.close()
+        return df
 
     # Function to get database connection
     def get_db_connection():
