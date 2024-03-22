@@ -14,19 +14,7 @@ def app():
             connection.commit()  # 不要忘记提交更改
             connection.close()
             st.success("记录已删除")  # 反馈删除操作成功
-    def execute_read_query(query=None):
-        # st.write(query)
-        connection = get_db_connection()
-        if query is None:
-            # Adjust this default query as per your requirements
-            query = """
-            SELECT Unit.*, Building.building_name, Building.location
-            FROM Unit
-            JOIN Building ON Unit.building_id = Building.building_id
-            """
-        df = pd.read_sql(query, connection)
-        connection.close()
-        return df
+
 
     # Function to get database connection
     def get_db_connection():
@@ -35,7 +23,9 @@ def app():
 
     def get_chatbot_wx_ids():
         query = "SELECT DISTINCT chatbot_wx_id FROM user WHERE chatbot_wx_id IS NOT NULL"
-        df = execute_read_query(query)
+        connection = get_db_connection()
+        df = pd.read_sql(query, connection)
+        connection.close()
         return df['chatbot_wx_id'].tolist()
 
     # Function to fetch user_wechat_ids for a given chatbot_wechat_id
