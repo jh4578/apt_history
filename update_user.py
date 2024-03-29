@@ -103,7 +103,8 @@ def app():
                         'sche_listing': 'sche_listing',
                         'is_group':'is_group',
                         'no_building':'no_building',
-                        'frequency':'frequency'
+                        'frequency':'frequency',
+                        'last_sent':'last_sent'
                     }
 
                     for i in updated_df.index:
