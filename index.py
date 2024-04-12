@@ -55,14 +55,14 @@ def logout():
 
 if 'password_correct' in st.session_state and st.session_state['password_correct']:
     def main():
-    
-        st.sidebar.title("目录")
-        choice = st.sidebar.selectbox("选择", ["推房记录","客户管理"])
+        update_user.app()  
+        # st.sidebar.title("目录")
+        # choice = st.sidebar.selectbox("选择", ["推房记录","客户管理"])
         
-        if choice == "推房记录":
-            search.app()
-        elif choice == "客户管理":
-            update_user.app()  
+        # if choice == "推房记录":
+        #     search.app()
+        # elif choice == "客户管理":
+        #     update_user.app()  
         
         
     if __name__ == "__main__":
