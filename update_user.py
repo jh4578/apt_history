@@ -211,7 +211,7 @@ def app():
     if 'user_wechat_ids' not in st.session_state:
         st.session_state['user_wechat_ids'] = []
 
-    with st.form("search_form"):
+    with st.form("search"):
         chatbot_wx_ids = get_chatbot_wx_ids()
         chatbot_wechat_id = st.selectbox("Chatbot 微信ID", ['Any'] + chatbot_wx_ids)
         fetch_ids = st.form_submit_button("加载客户微信备注")
