@@ -185,8 +185,7 @@ def app():
                         'last_sent':'last_sent',
                         'chatbot_on':'chatbot_on'
                     }
-
-                   for i in changed_rows.index:
+                    for i in changed_rows.index:
                         user_update_query = "UPDATE user SET "
                         user_update_query += ", ".join([f"{user_column_name_mapping[col]} = '{changed_rows.at[i, col]}'" for col in changed_rows.columns if col in user_column_name_mapping])
                         user_update_query += f" WHERE user_id = {changed_rows.at[i, 'user_id']}"
