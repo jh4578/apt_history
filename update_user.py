@@ -118,7 +118,7 @@ def app():
         chatbot_wx_ids = get_chatbot_wx_ids()
         chatbot_wx_id = st.selectbox("Chatbot 微信ID", ['Any'] + chatbot_wx_ids)
         sche_listing_options = ["Any", "Yes", "No"]
-        sche_listing = st.selectbox("是否推房", options=sche_listing_options)
+        chatbot_on = st.selectbox("Chatbot_on", options=sche_listing_options)
         search_user = st.form_submit_button("显示表格")
 
     # Handle Search
@@ -131,9 +131,9 @@ def app():
         if chatbot_wx_id != 'Any':
             search_query += f" AND chatbot_wx_id = '{chatbot_wx_id}'"
 
-        if sche_listing != "Any":
-            sche_listing_value = 1 if sche_listing == "Yes" else 0
-            search_query += f" AND sche_listing = {sche_listing_value}"
+        if chatbot_on != "Any":
+            chatbot_on = 1 if chatbot_on == "Yes" else 0
+            search_query += f" AND chatbot_on = {chatbot_on}"
 
         df = execute_read_query(search_query)
         st.session_state['search_results'] = df
