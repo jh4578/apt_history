@@ -194,7 +194,7 @@ def app():
 
                     for i in updated_df.index:
                         # 构造更新的列和值的列表
-                        set_clauses = [f"{user_column_name_mapping[col]} = %s" for col in updated_df.columns]
+                        set_clauses = [f"{col} = %s" for col in updated_df.columns]
                         # 准备数据以供更新
                         values = [updated_df.at[i, col] for col in updated_df.columns]
                         # 增加 WHERE 子句中的 user_id
