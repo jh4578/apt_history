@@ -3,7 +3,6 @@ import mysql.connector
 import pandas as pd
 from st_aggrid import AgGrid, GridOptionsBuilder
 from config import DATABASE_CONFIG
-from pandas import DataFrame
     
 def app():
     st.title("推房管理")
@@ -80,14 +79,9 @@ def app():
             return df['user_wechat_id'].tolist()
         return []
 
-    def rows_with_changes(original_df: DataFrame, updated_df: DataFrame) -> DataFrame:
-        # 创建一个标记变化的DataFrame
-        mask = original_df.ne(updated_df)
-        changed_rows = updated_df[mask.any(axis=1)]
-        return changed_rows
-        # Initialize or update session state for user_wechat_ids
-        if 'user_wechat_ids' not in st.session_state:
-            st.session_state['user_wechat_ids'] = []
+    # Initialize or update session state for user_wechat_ids
+    if 'user_wechat_ids' not in st.session_state:
+        st.session_state['user_wechat_ids'] = []
 
     with st.form("search"):
         st.write("推房记录")
@@ -148,9 +142,6 @@ def app():
     if 'search_results' in st.session_state:
         df = st.session_state['search_results']
 
-        if 'original_df' not in st.session_state:
-            st.session_state['original_df'] = df.copy()
-
         # Set up AgGrid options for editable grid
         gb = GridOptionsBuilder.from_dataframe(df)
         gb.configure_default_column(editable=True, minWidth=150)
@@ -172,9 +163,6 @@ def app():
             updated_df = grid_response['data']
             if not updated_df.equals(df):
                 if st.button('更新'):
-                    original_df = st.session_state['original_df']
-                    updated_df = grid_response['data']
-                    changed_rows = rows_with_changes(original_df, updated_df)
                     user_column_name_mapping = {
                         'wechat_id': 'wechat_id',
                         'chatbot_wx_id': 'chatbot_wx_id',
@@ -186,12 +174,11 @@ def app():
                         'chatbot_on':'chatbot_on'
                     }
 
-                   for i in changed_rows.index:
+                    for i in updated_df.index:
                         user_update_query = "UPDATE user SET "
-                        user_update_query += ", ".join([f"{user_column_name_mapping[col]} = '{changed_rows.at[i, col]}'" for col in changed_rows.columns if col in user_column_name_mapping])
-                        user_update_query += f" WHERE user_id = {changed_rows.at[i, 'user_id']}"
+                        user_update_query += ", ".join([f"{user_column_name_mapping[col]} = '{updated_df.at[i, col]}'" for col in updated_df.columns if col in user_column_name_mapping])
+                        user_update_query += f" WHERE user_id = {updated_df.at[i, 'user_id']}"
                         execute_write_query(user_update_query)
-                    st.session_state['original_df'] = updated_df.copy()
                     st.success("更新成功！")
 
         selected = grid_response['selected_rows']
