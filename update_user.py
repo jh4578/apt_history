@@ -225,7 +225,7 @@ def app():
         
         building_names = get_unique_building_names()  # 从数据库获取所有唯一的楼名
         new_nobuilding = st.multiselect("不要推的大楼", options=building_names, default = [])
-        new_sche_listing = st.checkbox("定时推房",value = False)
+        chatbot_on = st.checkbox("chatbot_on",value = False)
         is_group = st.checkbox('群聊',value = False)
         
         # 提交按钮
@@ -235,8 +235,8 @@ def app():
         no_building_str = ', '.join(new_nobuilding)
         # 插入新用户数据到数据库
         insert_query = f"""
-        INSERT INTO user (wechat_id, preference, chatbot_wx_id, sche_listing, is_group, no_building, frequency)
-        VALUES ('{new_wechat_id}', '{new_preference}', '{new_chatbot_wx_id}', {new_sche_listing}, {is_group}, '{no_building_str}',{frequency})
+        INSERT INTO user (wechat_id, preference, chatbot_wx_id, chatbot_on, is_group, no_building, frequency)
+        VALUES ('{new_wechat_id}', '{new_preference}', '{new_chatbot_wx_id}', {chatbot_on}, {is_group}, '{no_building_str}',{frequency})
         """
         execute_write_query(insert_query)
         st.success("用户添加成功！")
