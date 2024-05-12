@@ -98,7 +98,7 @@ def app():
         selected_user_wechat_id = st.selectbox("客户微信备注", st.session_state['user_wechat_ids'])
         if st.button("搜索"):
             query = """
-            SELECT Unit.building_name, Unit.unit_number, Unit.rent_price, Unit.floorplan, Unit.available_date, Unit.direction 
+            SELECT Unit.building_name, Unit.unit_number, Unit.rent_price, Unit.floorplan, Unit.available_date, Unit.direction, Unit.unit_id 
             FROM Unit_user
             JOIN Unit ON Unit_user.unit_id = Unit.unit_id
             WHERE Unit_user.user_wechat_id = %s AND Unit_user.chatbot_wechat_id = %s
