@@ -182,7 +182,6 @@ def app():
                     st.success("更新成功！")
 
         selected = grid_response['selected_rows']
-        print(selected)
         if len(selected) > 0:
             st.session_state['selected_for_deletion'] = selected
             
@@ -209,8 +208,8 @@ def app():
             #     st.success("楼名更新成功！")
                 
             if st.button('删除'):
-                for row in st.session_state['selected_for_deletion']:
-                    print(row['user_id'])
+                for row in selected:
+                    print(row)
                     user_delete_query = f"DELETE FROM user WHERE user_id = {row['user_id']}"
                     execute_write_query(user_delete_query)
                 st.success("删除成功！")
