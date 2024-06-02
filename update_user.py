@@ -182,6 +182,7 @@ def app():
                     st.success("更新成功！")
 
         selected = grid_response['selected_rows']
+        print(selected)
         if selected and len(selected) > 0:
             st.session_state['selected_for_deletion'] = selected
             
