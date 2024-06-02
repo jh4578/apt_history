@@ -183,12 +183,10 @@ def app():
 
         selected = grid_response['selected_rows']
         if len(selected) > 0:
-            print(type(selected))
-            print(selected)
 
             if st.button('删除'):
-                for row in selected:
-                    print(row)
+                for _, row in st.session_state['selected_for_deletion'].iterrows():
+
                     user_delete_query = f"DELETE FROM user WHERE user_id = {row['user_id']}"
                     execute_write_query(user_delete_query)
                 st.success("删除成功！")
