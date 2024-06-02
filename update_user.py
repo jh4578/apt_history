@@ -183,7 +183,7 @@ def app():
 
         selected = grid_response['selected_rows']
         print(selected)
-        if selected != None and len(selected) > 0:
+        if len(selected) > 0:
             st.session_state['selected_for_deletion'] = selected
             
             # if st.button("添加已推荐大楼"):
