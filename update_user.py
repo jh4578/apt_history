@@ -210,6 +210,7 @@ def app():
                 
             if st.button('删除'):
                 for row in st.session_state['selected_for_deletion']:
+                    print(row['user_id'])
                     user_delete_query = f"DELETE FROM user WHERE user_id = {row['user_id']}"
                     execute_write_query(user_delete_query)
                 st.success("删除成功！")
