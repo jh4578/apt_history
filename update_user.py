@@ -152,7 +152,7 @@ def app():
         grid_response = AgGrid(
             df, 
             gridOptions=grid_options,
-            height=400, 
+            height=800, 
             width='100%',
             data_return_mode='AS_INPUT', 
             update_mode='MODEL_CHANGED',
@@ -187,7 +187,7 @@ def app():
         if selected is not None and len(selected) > 0:
 
             if st.button('删除'):
-                for _, row in st.session_state['selected_for_deletion'].iterrows():
+                for _, row in selected.iterrows():
 
                     user_delete_query = f"DELETE FROM user WHERE user_id = {row['user_id']}"
                     execute_write_query(user_delete_query)
