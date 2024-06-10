@@ -182,7 +182,9 @@ def app():
                     st.success("更新成功！")
 
         selected = grid_response['selected_rows']
-        if len(selected) > 0:
+        print(selected)
+        print(type(seleceted))
+        if selected and len(selected) > 0:
 
             if st.button('删除'):
                 for _, row in st.session_state['selected_for_deletion'].iterrows():
