@@ -183,7 +183,7 @@ def app():
 
         selected = grid_response['selected_rows']
         print(selected)
-        print(type(seleceted))
+        # print(type(selected))
         if selected and len(selected) > 0:
 
             if st.button('删除'):
