@@ -184,7 +184,7 @@ def app():
         selected = grid_response['selected_rows']
         print(selected)
         # print(type(selected))
-        if not selected.empty and len(selected) > 0:
+        if selected is not None and len(selected) > 0:
 
             if st.button('删除'):
                 for _, row in st.session_state['selected_for_deletion'].iterrows():
