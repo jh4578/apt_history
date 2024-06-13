@@ -152,7 +152,7 @@ def app():
         grid_response = AgGrid(
             df, 
             gridOptions=grid_options,
-            height=800, 
+            height=600, 
             width='100%',
             data_return_mode='AS_INPUT', 
             update_mode='MODEL_CHANGED',
