@@ -184,8 +184,8 @@ def app():
                 if st.button('更新'):
                     # print(updated_df)
                        
-                    # df = df.reset_index(drop=True)
-                    # updated_df = updated_df.reset_index(drop=True)
+                    df = df.reset_index(drop=True)
+                    updated_df = updated_df.reset_index(drop=True)
                    
 
                     for index, row in updated_df.iterrows():
