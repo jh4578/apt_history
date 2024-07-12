@@ -185,7 +185,10 @@ def app():
                     # print(updated_df)
                        
                     df = df.reset_index(drop=True)
+                    df.drop(columns = 'last_sent',inplace = True)
                     updated_df = updated_df.reset_index(drop=True)
+                    updated_df.drop(columns = 'last_sent',inplace = True)
+                    
                    
 
                     for index, row in updated_df.iterrows():
