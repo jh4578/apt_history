@@ -1,3 +1,8 @@
+
+
+
+
+
 import streamlit as st
 import mysql.connector
 import pandas as pd
@@ -180,22 +185,8 @@ def app():
             updated_df = grid_response['data']
             if not updated_df.equals(df):
                 if st.button('更新'):
-                    # user_column_name_mapping = {
-                    #     'wechat_id': 'wechat_id',
-                    #     'chatbot_wx_id': 'chatbot_wx_id',
-                    #     'sche_listing': 'sche_listing',
-                    #     'is_group':'is_group',
-                    #     'no_building':'no_building',
-                    #     'frequency':'frequency',
-                    #     'last_sent':'last_sent',
-                    #     'chatbot_on':'chatbot_on'
-                    # }
-
-                    # for i in updated_df.index:
-                    #     user_update_query = "UPDATE user SET "
-                    #     user_update_query += ", ".join([f"{user_column_name_mapping[col]} = '{updated_df.at[i, col]}'" for col in updated_df.columns if col in user_column_name_mapping])
-                    #     user_update_query += f" WHERE user_id = {updated_df.at[i, 'user_id']}"
-                    #     execute_write_query(user_update_query)
+                    print(updated_df)
+                   
                     updated_df = updated_df.astype(str)
 
                     for index, row in updated_df.iterrows():
