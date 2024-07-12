@@ -183,8 +183,10 @@ def app():
             if not updated_df.equals(df):
                 if st.button('更新'):
                     # print(updated_df)
-                   
-                    updated_df = updated_df.astype(str)
+                       
+                    df = df.reset_index(drop=True)
+                    updated_df = updated_df.reset_index(drop=True)
+                    # updated_df = updated_df.astype(str)
 
                     for index, row in updated_df.iterrows():
                         if not row.equals(df.loc[index]):  # 检查行是否有变更
