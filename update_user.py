@@ -1,13 +1,10 @@
-
-
-
-
-
 import streamlit as st
 import mysql.connector
 import pandas as pd
 from st_aggrid import AgGrid, GridOptionsBuilder
 from config import DATABASE_CONFIG
+import warnings
+warnings.filterwarnings('ignore')
     
 def app():
     st.title("推房管理")
