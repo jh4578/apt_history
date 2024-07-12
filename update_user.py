@@ -187,19 +187,21 @@ def app():
                     updated_df = updated_df.astype(str)
 
                     for index, row in updated_df.iterrows():
-                        update_parts = []
-                        update_values = []
-                        for col in updated_df.columns:
-                            update_parts.append(f"{col} = %s")
-                            update_values.append(row[col])
+                        if not row.equals(df.loc[index]):  # 检查行是否有变更
+                            update_parts = []
+                            update_values = []
+                            for col in updated_df.columns:
+                                if row[col] != df.loc[index, col]:  # 只添加变更的字段
+                                    update_parts.append(f"{col} = %s")
+                                    update_values.append(row[col])
+                            
+                            if not update_parts:
+                                continue  # 如果没有要更新的字段，跳过此记录
         
-                        if not update_parts:
-                            continue  # 如果没有要更新的字段，跳过此记录
-        
-                        update_query = "UPDATE user SET " + ', '.join(update_parts) + " WHERE user_id = %s"
-                        record = tuple(update_values) + (row['user_id'],)
-                        print(update_query,record)
-                        sql_excecute(update_query,record)
+                            update_query = "UPDATE user SET " + ', '.join(update_parts) + " WHERE user_id = %s"
+                            record = tuple(update_values) + (row['user_id'],)
+                            print(update_query, record)
+                            sql_excecute(update_query, record)
                     st.success("更新成功！")
 
             
