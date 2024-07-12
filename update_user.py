@@ -196,6 +196,7 @@ def app():
                     #     user_update_query += ", ".join([f"{user_column_name_mapping[col]} = '{updated_df.at[i, col]}'" for col in updated_df.columns if col in user_column_name_mapping])
                     #     user_update_query += f" WHERE user_id = {updated_df.at[i, 'user_id']}"
                     #     execute_write_query(user_update_query)
+                    updated_df = updated_df.astype(str)
 
                     for index, row in updated_df.iterrows():
                         update_parts = []
@@ -216,7 +217,7 @@ def app():
             
 
         selected = grid_response['selected_rows']
-        print(selected)
+        # print(selected)
         # print(type(selected))
         if selected is not None and len(selected) > 0:
 
