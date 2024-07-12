@@ -190,9 +190,8 @@ def app():
                         update_parts = []
                         update_values = []
                         for col in updated_df.columns:
-                            if not pd.isna(row[col]):
-                                update_parts.append(f"{col} = %s")
-                                update_values.append(row[col])
+                            update_parts.append(f"{col} = %s")
+                            update_values.append(row[col])
         
                         if not update_parts:
                             continue  # 如果没有要更新的字段，跳过此记录
