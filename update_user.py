@@ -184,9 +184,9 @@ def app():
                 if st.button('更新'):
                     # print(updated_df)
                        
-                    df = df.reset_index(drop=True)
-                    updated_df = updated_df.reset_index(drop=True)
-                    # updated_df = updated_df.astype(str)
+                    # df = df.reset_index(drop=True)
+                    # updated_df = updated_df.reset_index(drop=True)
+                   
 
                     for index, row in updated_df.iterrows():
                         if not row.equals(df.loc[index]):  # 检查行是否有变更
@@ -199,10 +199,13 @@ def app():
                             
                             if not update_parts:
                                 continue  # 如果没有要更新的字段，跳过此记录
+
+                            st.write(update_parts)
+                            st.write(update_values)
         
                             update_query = "UPDATE user SET " + ', '.join(update_parts) + " WHERE user_id = %s"
                             record = tuple(update_values) + (row['user_id'],)
-                            st.write(record)
+                            
                             sql_excecute(update_query, record)
                     st.success("更新成功！")
 
