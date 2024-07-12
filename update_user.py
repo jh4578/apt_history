@@ -202,7 +202,7 @@ def app():
         
                             update_query = "UPDATE user SET " + ', '.join(update_parts) + " WHERE user_id = %s"
                             record = tuple(update_values) + (row['user_id'],)
-                            print(update_query, record)
+                            st.write(record)
                             sql_excecute(update_query, record)
                     st.success("更新成功！")
 
