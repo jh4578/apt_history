@@ -197,7 +197,7 @@ def app():
                         if not update_parts:
                             continue  # 如果没有要更新的字段，跳过此记录
         
-                        update_query = "UPDATE user SET " + ', '.join(update_parts) + ", on_market = 1 WHERE user_id = %s"
+                        update_query = "UPDATE user SET " + ', '.join(update_parts) + " WHERE user_id = %s"
                         record = tuple(update_values) + (row['user_id'],)
                         print(update_query,record)
                         sql_excecute(update_query,record)
