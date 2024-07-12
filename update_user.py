@@ -182,7 +182,7 @@ def app():
             updated_df = grid_response['data']
             if not updated_df.equals(df):
                 if st.button('更新'):
-                    print(updated_df)
+                    # print(updated_df)
                    
                     updated_df = updated_df.astype(str)
 
@@ -199,6 +199,7 @@ def app():
         
                         update_query = "UPDATE user SET " + ', '.join(update_parts) + ", on_market = 1 WHERE user_id = %s"
                         record = tuple(update_values) + (row['user_id'],)
+                        print(update_query,record)
                         sql_excecute(update_query,record)
                     st.success("更新成功！")
 
