@@ -143,7 +143,8 @@ def app():
     # Handle Search
     if search_user:
         search_query = """
-        SELECT *
+        SELECT wechat_id, preference, chatbot_wx_id, chatbot_on, sche_listing, is_group, 
+        no_building, conversation, frequency, last_sent, model2_number, user_id
         FROM user
         WHERE 1=1
         """
